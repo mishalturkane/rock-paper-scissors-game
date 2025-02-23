@@ -1,57 +1,65 @@
 use std::io;
+extern crate rand;
 use rand::Rng;
+
 fn main() {
-    println!("********* Welcome to the game *********");
-    println!("Select the input: \n 1->rock \n 2->paper \n 3->scissors");
-    println!("Enter a number:");
+    let mut user_score = 0;
+    let mut computer_score = 0;
 
-   let number: i32 = {
-       let mut temp = String::new();
-       io::stdin().read_line(&mut temp).expect("Failed to read input");
-       temp.trim().parse().expect("Invalid input, please enter a number")
-   };
+    loop {
+        println!("\n********* Welcome to the game *********");
+        println!("Select the input: \n 1 -> Rock \n 2 -> Paper \n 3 -> Scissors \n 0 -> Exit");
+        println!("Enter a number:");
 
-   match number {
-       1 => println!("you chooses: rock"),
-       2 => println!("you chooses: paper"),
-       3 => println!("you chooses: scissors"),
-       _ => {}
-   }
+        let number: i32 = {
+            let mut temp = String::new();
+            io::stdin().read_line(&mut temp).expect("Failed to read input");
+            match temp.trim().parse() {
+                Ok(num) => num,
+                Err(_) => {
+                    println!("Invalid input, please enter a number.");
+                    continue;
+                }
+            }
+        };
 
+        if number == 0 {
+            println!("Exiting game. Final Score - You: {}, Computer: {}", user_score, computer_score);
+            break;
+        }
 
-   let mut rng = rand::thread_rng(); // Create a random number generator
-   let random_number: i32 = rng.gen_range(1..=3); // Generate a number between 1 and 100
+        if number < 1 || number > 3 {
+            println!("Invalid choice, please enter a number between 1 and 3.");
+            continue;
+        }
 
-   match random_number {
-       1 => println!("computer chooses: rock"),
-       2 => println!("computer chooses: paper"),
-       3 => println!("computer chooses: scissors"),
-       _ => {}
-   }
+        match number {
+            1 => println!("You chose: Rock"),
+            2 => println!("You chose: Paper"),
+            3 => println!("You chose: Scissors"),
+            _ => {}
+        }
 
+        let mut rng = rand::thread_rng();
+        let computer_choice: i32 = rng.gen_range(1..=3);
 
-       let mut rng2 = rand::thread_rng(); // Create a random number generator
-       let value: i32 = rng2.gen_range(1..=3); // Generate a number between 1 and 100
+        match computer_choice {
+            1 => println!("Computer chose: Rock"),
+            2 => println!("Computer chose: Paper"),
+            3 => println!("Computer chose: Scissors"),
+            _ => {}
+        }
 
-       match value {
-           1 => println!("value is: rock"),
-           2 => println!("value is: paper"),
-           3 => println!("value is: scissors"),
-           _ => {}
+        if number == computer_choice {
+            println!("It's a tie!");
+        } else if (number == 1 && computer_choice == 3) || (number == 2 && computer_choice == 1) || (number == 3 && computer_choice == 2) {
+            println!("You win!");
+            user_score += 1;
+        } else {
+            println!("Computer wins!");
+            computer_score += 1;
+        }
 
-   }
-
-   if number == value{
-       println!("you win!");
-   }
-   else if random_number == value {
-       println!("computer win!");
-   }
-       else if number==value && random_number == value {
-           println!("tie!");
-       }
-   else {
-       print!("you both lose!");
-   }
-
+        println!("Current Score -> You: {}, Computer: {}", user_score, computer_score);
+    }
 }
