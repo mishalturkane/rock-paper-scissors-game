@@ -2,7 +2,6 @@
 
 A Rust implementation of the classic game with a strategic twist - featuring a special Power Move that beats all regular moves!
 
-![Gameplay Concept](./gameplay-concept.png) <!-- You can add an actual screenshot later -->
 
 ## Table of Contents
 - [Features](#features)
@@ -31,5 +30,5 @@ A Rust implementation of the classic game with a strategic twist - featuring a s
 ### Steps
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/rock-paper-scissors-power.git
+git clone https://github.com/mishalturkane/rock-paper-scissors-game.git
 cd rock-paper-scissors-power
